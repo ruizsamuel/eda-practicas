@@ -133,11 +133,14 @@ public class Ordenacion {
      * @return T[], el array resultante de ordenación de v[i, f]
      */
     private static <T extends Comparable<T>> T[] mergeSort2(T[] v, int i, int f) {
-        if (i < f) {
-            int m = (i + f) / 2;
-            return merge2(mergeSort2(v, i, m), mergeSort2(v, m + 1, f));
-        }
-        return (T[]) new Comparable[] {v[i]};
+        if (i == f) return (T[]) new Comparable[] {v[i]};
+
+        if (i + 1 == f) return (v[i].compareTo(v[f]) < 0)
+                ? (T[]) new Comparable[] {v[i], v[f]}
+                : (T[]) new Comparable[] {v[f], v[i]};
+
+        int m = (i + f) / 2;
+        return merge2(mergeSort2(v, i, m), mergeSort2(v, m + 1, f));
     }        
     
     /**
